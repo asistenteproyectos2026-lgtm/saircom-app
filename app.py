@@ -1,13 +1,10 @@
 import streamlit as st
 import pandas as pd
 import gspread
-import google.auth
+## import google.auth
 import re
 import time
 from datetime import datetime
-
-credenciales_dict = dict(st.secrets["gcp_service_account"])
-client = gspread.service_account_from_dict(credenciales_dict)
 
 # =========================================================
 # CONFIGURACIÓN GENERAL
@@ -29,8 +26,9 @@ st.set_page_config(page_title="SAIRCOM CRM PRO", layout="wide")
 
 @st.cache_resource
 def conectar():
-    creds, _ = google.auth.default()
-    return gspread.authorize(creds)
+    # Conexión segura usando los secretos de Streamlit Cloud
+    credenciales_dict = dict(st.secrets["gcp_service_account"])
+    return gspread.service_account_from_dict(credenciales_dict)
 
 def get_next_id_smart(worksheet, prefix):
     try:
