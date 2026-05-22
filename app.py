@@ -6,6 +6,9 @@ import re
 import time
 from datetime import datetime
 
+credenciales_dict = dict(st.secrets["gcp_service_account"])
+client = gspread.service_account_from_dict(credenciales_dict)
+
 # =========================================================
 # CONFIGURACIÓN GENERAL
 # =========================================================
